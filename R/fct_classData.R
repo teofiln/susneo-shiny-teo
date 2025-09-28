@@ -26,7 +26,9 @@
 #' }
 #'
 #' @export
+# nolint start
 Data <- R6::R6Class(
+  # nolint end
   "Data",
   public = list(
     #' @field data The original dataset.
@@ -48,6 +50,7 @@ Data <- R6::R6Class(
         # let validate() set self$validated (and throw error if invalid)
         self$validate()
       }
+      private$coerce_date_cols()
     },
     #' @description Get the current dataset.
     #' If filtered, returns the filtered dataset.
@@ -87,6 +90,12 @@ Data <- R6::R6Class(
       self$filtered_data <- .filter(self$data, arglist)
       self$filtered <- TRUE
       invisible(self$filtered_data)
+    }
+  ),
+  private = list(
+    coerce_date_cols = function() {
+      logger::log_debug("[Data:coerce_date_cols] Coercing date columns")
+      self$data$date <- as.Date(self$data$date, format = "%Y-%m-%d")
     }
   )
 )
