@@ -21,6 +21,10 @@ filters <- list(
 )
 data_obj$filter(filters)
 filtered_data <- data_obj$get()
+data_obj$filtered  # TRUE
+data_obj$validated # TRUE
+data_obj$filter(list()) # no filtering, returns original data
+data_obj$get() # returns original data
 }
 
 }

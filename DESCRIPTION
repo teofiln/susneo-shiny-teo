@@ -15,6 +15,7 @@ Imports:
     golem,
     logger,
     purrr,
+    R6,
     rlang,
     shiny
 Encoding: UTF-8
