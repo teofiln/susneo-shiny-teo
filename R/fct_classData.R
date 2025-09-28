@@ -7,6 +7,24 @@
 #'
 #' @importFrom R6 R6Class
 #' @importFrom logger log_debug
+#'
+#' @examples
+#' \dontrun{
+#' d <- task1::sample_data
+#' data_obj <- Data$new(d)
+#' data_obj$validate()
+#' kpis <- data_obj$kpis()
+#' filters <- list(
+#'   list(col = "value", fun = "between", min = 10, max = 50)
+#' )
+#' data_obj$filter(filters)
+#' filtered_data <- data_obj$get()
+#' data_obj$filtered  # TRUE
+#' data_obj$validated # TRUE
+#' data_obj$filter(list()) # no filtering, returns original data
+#' data_obj$get() # returns original data
+#' }
+#'
 #' @export
 Data <- R6::R6Class(
   "Data",
@@ -52,6 +70,7 @@ Data <- R6::R6Class(
       invisible(TRUE)
     },
     #' @description Calculate and return key performance indicators (KPIs).
+    #' See `?task1::compute_kpis` for details.
     #' @return A list of computed KPIs.
     kpis = function() {
       logger::log_debug("[Data:kpis] Calculating KPIs")
@@ -61,6 +80,7 @@ Data <- R6::R6Class(
     #' Uses the `.filter` function to apply the filters.
     #' Sets the `filtered` flag to TRUE and stores the filtered dataset.
     #' @param arglist A list of filter specifications.
+    #' See `?task1::.filter` for details.
     #' @return The filtered dataset.
     filter = function(arglist) {
       logger::log_debug("[Data:filter] Filtering data")

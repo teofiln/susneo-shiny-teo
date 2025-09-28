@@ -10,6 +10,20 @@ An R6 class object with methods to manage and analyze the dataset.
 A R6 class to encapsulate dataset operations
 including filtering, validation, and KPI calculation.
 }
+\examples{
+\dontrun{
+d <- task1::sample_data
+data_obj <- Data$new(d)
+data_obj$validate()
+kpis <- data_obj$kpis()
+filters <- list(
+  list(col = "value", fun = "between", min = 10, max = 50)
+)
+data_obj$filter(filters)
+filtered_data <- data_obj$get()
+}
+
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -86,6 +100,7 @@ TRUE if validation is successful, otherwise throws an error.
 \if{latex}{\out{\hypertarget{method-Data-kpis}{}}}
 \subsection{Method \code{kpis()}}{
 Calculate and return key performance indicators (KPIs).
+See `?task1::compute_kpis` for details.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Data$kpis()}\if{html}{\out{</div>}}
 }
@@ -108,7 +123,8 @@ Sets the `filtered` flag to TRUE and stores the filtered dataset.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{arglist}}{A list of filter specifications.}
+\item{\code{arglist}}{A list of filter specifications.
+See `?task1::.filter` for details.}
 }
 \if{html}{\out{</div>}}
 }
