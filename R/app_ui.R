@@ -20,13 +20,15 @@ app_ui <- function(request) {
         version = 5,
         primary = "#4eb5ab",
         font_scale = 0.8,
-        base_font = bslib::font_google("Nunito"),
+        base_font = bslib::font_google("Lato"),
       ),
       fluid = TRUE,
       sidebar = bslib::sidebar(
-        width = 350,
+        width = 300,
         mod_data_upload_ui("data_upload"),
         shiny::hr(),
+        mod_filter_data_ui("filter_data"),
+        shiny::hr()
       )
     )
   )
