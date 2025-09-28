@@ -11,8 +11,11 @@ License: What license is it under?
 Imports: 
     checkmate,
     config,
+    dplyr,
     golem,
     logger,
+    purrr,
+    rlang,
     shiny
 Encoding: UTF-8
 LazyData: true
