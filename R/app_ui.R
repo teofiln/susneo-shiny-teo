@@ -10,11 +10,11 @@ app_ui <- function(request) {
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # Your application UI logic
-    bslib::page_sidebar(
-      title = shiny::tags$span(
-        class = "d-flex align-items-center",
-        shiny::tags$img(class = "me-5", src = "www/logo.png", height = "25px"),
-        shiny::tags$strong(class = "fs-4", "Consumption & Emissions Analysis")
+    bslib::page_navbar(
+      title = shiny::tags$img(
+        class = "me-5",
+        src = "www/logo.png",
+        height = "25px"
       ),
       theme = bslib::bs_theme(
         version = 5,
@@ -23,13 +23,14 @@ app_ui <- function(request) {
         base_font = bslib::font_google("Lato"),
       ),
       fluid = TRUE,
-      sidebar = bslib::sidebar(
-        width = 300,
-        mod_data_upload_ui("data_upload"),
-        shiny::hr(),
-        mod_filter_data_ui("filter_data"),
-        shiny::hr()
-      )
+      bslib::nav_spacer(),
+      bslib::nav_item(shiny::tags$strong(
+        class = "fs-4",
+        "Consumption & Emissions Analysis"
+      )),
+      bslib::nav_spacer(),
+      bslib::nav_panel("Data", mod_data_upload_ui("data_upload")),
+      bslib::nav_panel("Dashboard", mod_filter_data_ui("filter_data"))
     )
   )
 }

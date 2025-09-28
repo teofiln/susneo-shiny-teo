@@ -9,47 +9,53 @@
 #' @importFrom shiny NS tagList
 mod_filter_data_ui <- function(id) {
   ns <- shiny::NS(id)
-  shiny::tagList(
-    shiny::selectInput(
-      inputId = ns("filter_site"),
-      label = "Select Site(s)",
-      choices = NULL,
-      selected = NULL,
-      multiple = TRUE
-    ),
-    shiny::dateRangeInput(
-      inputId = ns("filter_date"),
-      label = "Select Date Range",
-      start = NULL,
-      end = NULL,
-      min = NULL,
-      max = NULL
-    ),
-    shiny::selectInput(
-      inputId = ns("filter_type"),
-      label = "Select Type(s)",
-      choices = NULL,
-      selected = NULL,
-      multiple = TRUE
-    ),
-    shiny::sliderInput(
-      inputId = ns("filter_value"),
-      label = "Select Value Range",
-      min = 0,
-      max = 100,
-      value = c(0, 100)
-    ),
-    shiny::sliderInput(
-      inputId = ns("filter_carbon_emission"),
-      label = "Select Carbon Emission Range (kgCO2e)",
-      min = 0,
-      max = 100,
-      value = c(0, 100)
-    ),
-    shiny::tags$hr(),
-    shiny::actionButton(
-      inputId = ns("apply_filters"),
-      label = "Apply Filters"
+  bslib::layout_sidebar(
+    "Stuff",
+    sidebar = bslib::sidebar(
+      width = 300,
+      shiny::tagList(
+        shiny::selectInput(
+          inputId = ns("filter_site"),
+          label = "Select Site(s)",
+          choices = NULL,
+          selected = NULL,
+          multiple = TRUE
+        ),
+        shiny::dateRangeInput(
+          inputId = ns("filter_date"),
+          label = "Select Date Range",
+          start = NULL,
+          end = NULL,
+          min = NULL,
+          max = NULL
+        ),
+        shiny::selectInput(
+          inputId = ns("filter_type"),
+          label = "Select Type(s)",
+          choices = NULL,
+          selected = NULL,
+          multiple = TRUE
+        ),
+        shiny::sliderInput(
+          inputId = ns("filter_value"),
+          label = "Select Value Range",
+          min = 0,
+          max = 100,
+          value = c(0, 100)
+        ),
+        shiny::sliderInput(
+          inputId = ns("filter_carbon_emission"),
+          label = "Select Carbon Emission Range (kgCO2e)",
+          min = 0,
+          max = 100,
+          value = c(0, 100)
+        ),
+        shiny::tags$hr(),
+        shiny::actionButton(
+          inputId = ns("apply_filters"),
+          label = "Apply Filters"
+        )
+      )
     )
   )
 }
