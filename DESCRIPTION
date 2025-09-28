@@ -13,9 +13,11 @@ Imports:
     config,
     dplyr,
     golem,
+    janitor,
     logger,
     purrr,
     R6,
+    reactable,
     rlang,
     shiny
 Encoding: UTF-8

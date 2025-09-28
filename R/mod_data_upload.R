@@ -10,10 +10,11 @@
 mod_data_upload_ui <- function(id) {
   ns <- shiny::NS(id)
   bslib::layout_sidebar(
-    "Stuff",
+    mod_table_ui(ns("table")),
     sidebar = bslib::sidebar(
       width = 300,
       shiny::tagList(
+        shiny::tags$h3("Data Upload"),
         shiny::fileInput(
           inputId = ns("file"),
           label = "Upload CSV File",
@@ -132,10 +133,6 @@ mod_data_upload_server <- function(id) {
           {
             data_obj <- Data$new(df)
             session$userData$data_obj_rct(data_obj)
-            shiny::showNotification(
-              "Demo data loaded and validated successfully",
-              type = "message"
-            )
           },
           error = function(e) {
             shiny::showNotification(
@@ -169,5 +166,8 @@ mod_data_upload_server <- function(id) {
         icon = shiny::icon("eye")
       )
     })
+
+    # Render data table
+    mod_table_server("table")
   })
 }
