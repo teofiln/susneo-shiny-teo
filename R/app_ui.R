@@ -19,6 +19,7 @@ app_ui <- function(request) {
       theme = bslib::bs_theme(
         version = 5,
         primary = "#4eb5ab",
+        font_scale = 0.8,
         base_font = bslib::font_google("Nunito"),
       ),
       fluid = TRUE,

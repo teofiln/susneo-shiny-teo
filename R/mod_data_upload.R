@@ -19,31 +19,42 @@ mod_data_upload_ui <- function(id) {
         ".csv"
       )
     ),
-    shiny::helpText(
-      id = ns("help_text"),
-      shiny::p(
-        "Upload a CSV file containing your dataset. The file should
+    bslib::card(
+      bslib::card_header(
+        class = "d-flex justify-content-between align-items-center border-bottom-0", # nolint
+        "File Upload Instructions",
+        shiny::actionLink(
+          ns("hide_help"),
+          label = NULL,
+          icon = shiny::icon("eye-slash")
+        )
+      ),
+      bslib::card_body(
+        class = "text-muted",
+        id = ns("help_text"),
+        shiny::p(
+          "Upload a CSV file containing your dataset. The file should
       include columns 'id', 'site', 'date', 'type', and 'value',
       and 'carbon.emission.in.kgco2e'. If any of these columns
       are missing or incorrectly named, an error will be shown
       after upload."
-      ),
-      shiny::p(
-        "After uploading, the data will be validated automatically.
+        ),
+        shiny::p(
+          "After uploading, the data will be validated automatically.
       If the data is valid, a success message will be shown.
       If there are issues with the data, an error message
       will indicate what needs to be fixed."
-      ),
-      shiny::p(
-        "Once the data is successfully uploaded and validated,
+        ),
+        shiny::p(
+          "Once the data is successfully uploaded and validated,
       you can proceed to the next steps in the analysis."
-      ),
-      shiny::p(
-        "To use a demo dataset, toggle the 'Use Demo Data' option
+        ),
+        shiny::p(
+          "To use a demo dataset, toggle the 'Use Demo Data' option
       below."
+        )
       )
     ),
-    shiny::actionLink(ns("hide_help"), "Hide help text"),
     shiny::checkboxInput(
       inputId = ns("use_demo"),
       label = "Use Demo Data",
@@ -139,7 +150,8 @@ mod_data_upload_server <- function(id) {
         golem::invoke_js("showid", id = ns("help_text"))
         shiny::updateActionLink(
           inputId = "hide_help",
-          label = "Hide help text"
+          label = NULL,
+          icon = shiny::icon("eye-slash")
         )
         return()
       }
@@ -147,7 +159,8 @@ mod_data_upload_server <- function(id) {
       golem::invoke_js("hideid", id = ns("help_text"))
       shiny::updateActionLink(
         inputId = "hide_help",
-        label = "Show help text"
+        label = NULL,
+        icon = shiny::icon("eye")
       )
     })
   })
