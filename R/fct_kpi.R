@@ -85,7 +85,7 @@ kpi_average_efficiency_ratio <- function(data) {
 #' Compute all KPIs
 #' @param data A data frame containing the necessary columns.
 #' @return A list of all computed KPIs.
-#' @noRd
+#' @export
 compute_kpis <- function(data) {
   logger::log_debug("[compute_kpis] Computing KPIs")
   kpis <- list(

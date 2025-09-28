@@ -2,6 +2,7 @@
 
 export(.filter)
 export(Data)
+export(compute_kpis)
 export(run_app)
 export(validate_dataset)
 import(shiny)
