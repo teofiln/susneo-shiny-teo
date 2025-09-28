@@ -14,6 +14,7 @@ mod_filter_data_ui <- function(id) {
     sidebar = bslib::sidebar(
       width = 300,
       shiny::tagList(
+        shiny::tags$h3("Filter"),
         shiny::selectInput(
           inputId = ns("filter_site"),
           label = "Select Site(s)",
