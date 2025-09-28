@@ -11,11 +11,21 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # Your application UI logic
     bslib::page_sidebar(
-      title = "task1",
-      theme = bslib::bs_theme(version = 5, bootswatch = "flatly"),
+      title = shiny::tags$span(
+        class = "d-flex align-items-center",
+        shiny::tags$img(class = "me-5", src = "www/logo.png", height = "25px"),
+        shiny::tags$strong(class = "fs-4", "Consumption & Emissions Analysis")
+      ),
+      theme = bslib::bs_theme(
+        version = 5,
+        primary = "#4eb5ab",
+        base_font = bslib::font_google("Nunito"),
+      ),
       fluid = TRUE,
       sidebar = bslib::sidebar(
-        "Content"
+        width = 350,
+        mod_data_upload_ui("data_upload"),
+        shiny::hr(),
       )
     )
   )
@@ -40,7 +50,8 @@ golem_add_external_resources <- function() {
     golem::bundle_resources(
       path = app_sys("app/www"),
       app_title = "task1"
-    )
+    ),
+    golem::activate_js()
     # Add here other external resources
     # for example, you can add shinyalert::useShinyalert()
   )
