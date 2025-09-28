@@ -9,7 +9,7 @@ test_that("filtering works", {
   expect_true(all(res$Species %in% c("setosa", "versicolor")))
 })
 
-test_that("filtering with NULL values returns original data", {
+test_that("filtering with NULL values throws error", {
   d <- iris
   l <- list(
     list(col = "Sepal.Length", fun = "between", min = NULL, max = 5),
@@ -37,5 +37,13 @@ test_that("filtering with invalid function names throws error", {
 test_that("filtering with empty arglist returns original data", {
   d <- iris
   l <- list()
-  expect_error(.filter(d, l))
+  res <- .filter(d, l)
+  expect_equal(res, d)
+})
+
+test_that("filtering with NULL arglist returns original data", {
+  d <- iris
+  l <- NULL
+  res <- .filter(d, l)
+  expect_equal(res, d)
 })

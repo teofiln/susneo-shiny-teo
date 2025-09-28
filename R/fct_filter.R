@@ -24,8 +24,13 @@
 #' @importFrom rlang sym
 #' @export
 .filter <- function(data, arglist) {
+  checkmate::assert_list(arglist, types = "list", null.ok = TRUE)
+
+  if (is.null(arglist) || length(arglist) == 0) {
+    return(data)
+  }
+
   checkmate::assert_data_frame(data)
-  checkmate::assert_list(arglist, types = "list", null.ok = FALSE, min.len = 1)
   checkmate::assert_subset(
     purrr::map_chr(arglist, purrr::pluck, "col"),
     choices = names(data)
