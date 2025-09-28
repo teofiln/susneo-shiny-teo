@@ -1,17 +1,27 @@
 #' classData
 #'
-#' @description A fct function
+#' @description A R6 class to encapsulate dataset operations
+#' including filtering, validation, and KPI calculation.
 #'
-#' @return The return value, if any, from executing the function.
+#' @return An R6 class object with methods to manage and analyze the dataset.
 #'
-#' @noRd
+#' @importFrom R6 R6Class
+#' @importFrom logger log_debug
+#' @export
 Data <- R6::R6Class(
   "Data",
   public = list(
+    #' @field data The original dataset.
     data = NULL,
+    #' @field filtered_data The filtered dataset.
     filtered_data = NULL,
+    #' @field validated Logical, whether the dataset has been validated.
     validated = FALSE,
+    #' @field filtered Logical, whether the dataset has been filtered.
     filtered = FALSE,
+    #' @param data A data frame containing the dataset.
+    #' @param validate Logical, whether to validate the dataset
+    #' upon initialization.
     initialize = function(data, validate = TRUE) {
       logger::log_debug("[Data:initialize] Initializing Data object")
       self$data <- data
@@ -21,6 +31,9 @@ Data <- R6::R6Class(
         self$validate()
       }
     },
+    #' @description Get the current dataset.
+    #' If filtered, returns the filtered dataset.
+    #' @return The current dataset (filtered or original).
     get = function() {
       logger::log_debug("[Data:get] Retrieving data")
       if (isTRUE(self$filtered)) {
@@ -29,16 +42,26 @@ Data <- R6::R6Class(
       }
       return(self$data)
     },
+    #' @description Validate the dataset against required structure and types.
+    #' Sets the `validated` flag to TRUE if successful.
+    #' @return TRUE if validation is successful, otherwise throws an error.
     validate = function() {
       logger::log_debug("[Data:validate] Validating data")
       validate_dataset(self$data)
       self$validated <- TRUE
       invisible(TRUE)
     },
+    #' @description Calculate and return key performance indicators (KPIs).
+    #' @return A list of computed KPIs.
     kpis = function() {
       logger::log_debug("[Data:kpis] Calculating KPIs")
       return(compute_kpis(self$data))
     },
+    #' @description Filter the dataset based on specified criteria.
+    #' Uses the `.filter` function to apply the filters.
+    #' Sets the `filtered` flag to TRUE and stores the filtered dataset.
+    #' @param arglist A list of filter specifications.
+    #' @return The filtered dataset.
     filter = function(arglist) {
       logger::log_debug("[Data:filter] Filtering data")
       self$filtered_data <- .filter(self$data, arglist)
