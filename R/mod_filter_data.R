@@ -1,4 +1,4 @@
-#' filter_data UI Function
+#' dashboard UI Function
 #'
 #' @description A shiny Module.
 #'
@@ -7,7 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
-mod_filter_data_ui <- function(id) {
+mod_dashboard_ui <- function(id) {
   ns <- shiny::NS(id)
   bslib::layout_sidebar(
     mod_kpis_ui(ns("kpis")),
@@ -96,10 +96,10 @@ mod_filter_data_ui <- function(id) {
   )
 }
 
-#' filter_data Server Functions
+#' dashboard Server Functions
 #'
 #' @noRd
-mod_filter_data_server <- function(id) {
+mod_dashboard_server <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns # nolint
 
