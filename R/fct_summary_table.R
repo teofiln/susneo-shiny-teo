@@ -1,6 +1,7 @@
 #' summary_table
 #'
 #' @description A function to generate a summary table of key statistics
+#' @param data A data frame containing the dataset
 #'
 #' @return a data frame with summary statistics
 #'
