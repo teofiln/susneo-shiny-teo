@@ -86,6 +86,10 @@ mod_filter_data_ui <- function(id) {
         shiny::actionButton(
           inputId = ns("apply_filters"),
           label = "Apply Filters"
+        ),
+        shiny::actionButton(
+          inputId = ns("reset_filters"),
+          label = "Reset Filters"
         )
       )
     )
@@ -177,6 +181,23 @@ mod_filter_data_server <- function(id) {
         )
       },
       ignoreNULL = FALSE
+    )
+
+    # Reset filters
+    shiny::observeEvent(
+      input$reset_filters,
+      {
+        shiny::req(session$userData$data_obj_rct()$validated)
+        session$userData$data_obj_rct()$filter(list())
+        session$userData$data_obj_rct()$get()
+        shiny::showNotification(
+          "Filters reset, original data restored",
+          type = "message"
+        )
+        session$userData$filter_trigger(
+          runif(1)
+        )
+      }
     )
 
     # Render KPIs
