@@ -39,10 +39,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-renv-
 
-      - name: Install renv and restore packages
+      - name: Install remotes/jsonlite and restore packages with matching renv
         run: |
-          Rscript -e "install.packages('renv', repos='https://cloud.r-project.org')"
-          Rscript -e "renv::restore(lockfile = 'renv.lock', confirm = FALSE, restart = FALSE)"
+          Rscript -e 'install.packages(c("remotes","jsonlite"), repos="https://cloud.r-project.org")'
+          Rscript -e 'v <- jsonlite::read_json("renv.lock")$Packages$renv$Version; message("Installing renv version: ", v); remotes::install_version("renv", version = v, repos="https://cloud.r-project.org", upgrade = "never")'
+          Rscript -e 'renv::restore(lockfile = "renv.lock")'
 
       - name: Run package tests
         run: |
