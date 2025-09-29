@@ -4,11 +4,11 @@ test_that("[validate_dataset] Validates the dataset structure", {
     id = 1:5,
     site = c("A", "B", "C", "D", "E"),
     date = c(
-      "2023-01-01",
-      "2023-01-02",
-      "2023-01-03",
-      "2023-01-04",
-      "2023-01-05"
+      "01-01-2023",
+      "02-01-2023",
+      "03-01-2023",
+      "04-01-2023",
+      "05-01-2023"
     ),
     type = c("X", "Y", "X", "Y", "X"),
     value = c(10.5, 20.3, 15.2, 25.1, 30.0),
@@ -22,11 +22,11 @@ test_that("[validate_dataset] Catches missing required columns", {
   invalid_data <- data.frame(
     id = 1:5,
     date = c(
-      "2023-01-01",
-      "2023-01-02",
-      "2023-01-03",
-      "2023-01-04",
-      "2023-01-05"
+      "01-01-2023",
+      "02-01-2023",
+      "03-01-2023",
+      "04-01-2023",
+      "05-01-2023"
     ),
     type = c("X", "Y", "X", "Y", "X"),
     value = c(10.5, 20.3, 15.2, 25.1, 30.0),
@@ -42,11 +42,11 @@ test_that("[validate_dataset] Catches incorrect column types", {
     id = as.character(1:5), # Should be integerish
     site = c("A", "B", "C", "D", "E"),
     date = c(
-      "2023-01-01",
-      "2023-01-02",
-      "2023-01-03",
-      "2023-01-04",
-      "2023-01-05"
+      "01-01-2023",
+      "02-01-2023",
+      "03-01-2023",
+      "04-01-2023",
+      "05-01-2023"
     ),
     type = c("X", "Y", "X", "Y", "X"),
     # Should be numeric
@@ -63,11 +63,11 @@ test_that("[validate_dataset] Catches invalid date formats", {
     id = 1:5,
     site = c("A", "B", "C", "D", "E"),
     date = c(
-      "2023/01/01", # Invalid format
-      "2023-01-02",
-      "2023-01-03",
-      "2023-01-04",
-      "2023-01-05"
+      "2023/01/01", # Invalid format (keep intentionally invalid)
+      "02-01-2023",
+      "03-01-2023",
+      "04-01-2023",
+      "05-01-2023"
     ),
     type = c("X", "Y", "X", "Y", "X"),
     value = c(10.5, 20.3, 15.2, 25.1, 30.0),
@@ -82,11 +82,11 @@ test_that("[validate_dataset] Catches missing values in date column", {
     id = 1:5,
     site = c("A", "B", "C", "D", "E"),
     date = c(
-      "2023-01-01",
+      "01-01-2023",
       NA, # Missing date
-      "2023-01-03",
-      "2023-01-04",
-      "2023-01-05"
+      "03-01-2023",
+      "04-01-2023",
+      "05-01-2023"
     ),
     type = c("X", "Y", "X", "Y", "X"),
     value = c(10.5, 20.3, 15.2, 25.1, 30.0),

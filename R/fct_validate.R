@@ -36,7 +36,7 @@ validate_dataset <- function(input_data = NULL) {
   checkmate::assert_numeric(input_data$carbon.emission.in.kgco2e)
 
   # Validate dates are safely convertible to date class
-  date_parsed <- as.Date(input_data$date, format = "%Y-%m-%d")
+  date_parsed <- as.Date(input_data$date, format = "%d-%m-%Y")
   checkmate::assert_date(date_parsed, any.missing = FALSE)
 
   logger::log_debug("[validate_dataset] Done!")

@@ -12,10 +12,9 @@
 #' \dontrun{
 #' d <- task1::sample_data
 #' data_obj <- Data$new(d)
-#' data_obj$validate()
 #' kpis <- data_obj$kpis()
 #' filters <- list(
-#'   list(col = "value", fun = "between", min = 10, max = 50)
+#'   list(col = "value", fun = "between", min = 100, max = 200)
 #' )
 #' data_obj$filter(filters)
 #' filtered_data <- data_obj$get()
@@ -77,6 +76,10 @@ Data <- R6::R6Class(
     #' @return A list of computed KPIs.
     kpis = function() {
       logger::log_debug("[Data:kpis] Calculating KPIs")
+      if (isTRUE(self$filtered)) {
+        logger::log_debug("[Data:kpis] Using filtered data for KPIs")
+        return(compute_kpis(self$filtered_data))
+      }
       return(compute_kpis(self$data))
     },
     #' @description Filter the dataset based on specified criteria.
@@ -95,7 +98,7 @@ Data <- R6::R6Class(
   private = list(
     coerce_date_cols = function() {
       logger::log_debug("[Data:coerce_date_cols] Coercing date columns")
-      self$data$date <- as.Date(self$data$date, format = "%Y-%m-%d")
+      self$data$date <- as.Date(self$data$date, format = "%d-%m-%Y")
     }
   )
 )
