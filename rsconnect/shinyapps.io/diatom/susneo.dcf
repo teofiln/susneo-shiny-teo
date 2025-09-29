@@ -1,0 +1,10 @@
+name: susneo
+title:
+username: diatom
+account: diatom
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15592004
+bundleId: 10965877
+url: https://diatom.shinyapps.io/susneo/
+version: 1

@@ -1,4 +1,4 @@
-# task1 — Susneo Consumption & Emissions Analysis
+# Susneo Consumption & Emissions Analysis
 
 An R package containing a small Shiny dashboard for exploring consumption and carbon emissions data. The package bundles helper functions, modules, and an R6 `Data` class to encapsulate dataset operations.
 
