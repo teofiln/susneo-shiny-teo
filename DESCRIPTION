@@ -15,6 +15,7 @@ Imports:
     golem,
     janitor,
     logger,
+    plotly,
     purrr,
     R6,
     reactable,

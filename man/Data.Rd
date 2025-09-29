@@ -48,6 +48,9 @@ data_obj$get() # returns original data
 \item \href{#method-Data-validate}{\code{Data$validate()}}
 \item \href{#method-Data-kpis}{\code{Data$kpis()}}
 \item \href{#method-Data-filter}{\code{Data$filter()}}
+\item \href{#method-Data-ts_chart}{\code{Data$ts_chart()}}
+\item \href{#method-Data-summary_table}{\code{Data$summary_table()}}
+\item \href{#method-Data-bar_chart}{\code{Data$bar_chart()}}
 \item \href{#method-Data-clone}{\code{Data$clone()}}
 }
 }
@@ -133,6 +136,68 @@ See `?task1::.filter` for details.}
 }
 \subsection{Returns}{
 The filtered dataset.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Data-ts_chart"></a>}}
+\if{latex}{\out{\hypertarget{method-Data-ts_chart}{}}}
+\subsection{Method \code{ts_chart()}}{
+Get a time series chart of the specified variable.
+Uses the `ts_chart` function to create the chart.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Data$ts_chart(y_var = "value", agg_fun = mean)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{y_var}}{The name of the variable to plot on the y-axis.
+Default is "value".}
+
+\item{\code{agg_fun}}{The aggregation function to use if there are
+multiple observations per date (default is mean).}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A plotly object representing the time series chart.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Data-summary_table"></a>}}
+\if{latex}{\out{\hypertarget{method-Data-summary_table}{}}}
+\subsection{Method \code{summary_table()}}{
+Get a summary table of key statistics.
+Uses the `summary_table` function to create the table.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Data$summary_table()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A data frame with summary statistics.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Data-bar_chart"></a>}}
+\if{latex}{\out{\hypertarget{method-Data-bar_chart}{}}}
+\subsection{Method \code{bar_chart()}}{
+Get a bar chart of the specified variables.
+Uses the `bar_chart` function to create the chart.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Data$bar_chart(x_var, y_var)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{x_var}}{The name of the variable to plot on the x-axis.}
+
+\item{\code{y_var}}{The name of the variable to plot on the y-axis.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A plotly object representing the bar chart.
 }
 }
 \if{html}{\out{<hr>}}
