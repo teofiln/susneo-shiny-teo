@@ -42,7 +42,7 @@ jobs:
       - name: Install renv and restore packages
         run: |
           Rscript -e "install.packages('renv', repos='https://cloud.r-project.org')"
-          Rscript -e "renv::restore(lockfile = 'renv.lock', confirm = FALSE)"
+          Rscript -e "renv::restore(lockfile = 'renv.lock', confirm = FALSE, restart = FALSE)"
 
       - name: Run package tests
         run: |
