@@ -9,3 +9,6 @@ $run_dev.*
 ^.here$
 ^app\.R$
 ^rsconnect$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
