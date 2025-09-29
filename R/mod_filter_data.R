@@ -11,6 +11,37 @@ mod_filter_data_ui <- function(id) {
   ns <- shiny::NS(id)
   bslib::layout_sidebar(
     mod_kpis_ui(ns("kpis")),
+    bslib::layout_column_wrap(
+      widths = 1 / 3,
+      mod_ts_chart_ui(
+        ns("ts_value"),
+        title = "Time Series of Consumption (Daily average)"
+      ),
+      mod_ts_chart_ui(
+        ns("ts_emission"),
+        title = "Time Series of Carbon Emissions (kgCO2e, Daily average)"
+      ),
+      mod_summary_table_ui(ns("summary_table"))
+    ),
+    bslib::layout_column_wrap(
+      widths = 1 / 4,
+      mod_bar_chart_ui(
+        ns("bar_chart1"),
+        title = "Average Consumption by Site"
+      ),
+      mod_bar_chart_ui(
+        ns("bar_chart2"),
+        title = "Average Carbon Emission by Site"
+      ),
+      mod_bar_chart_ui(
+        ns("bar_chart3"),
+        title = "Average Consumption by Type"
+      ),
+      mod_bar_chart_ui(
+        ns("bar_chart4"),
+        title = "Average Carbon Emission by Type"
+      )
+    ),
     sidebar = bslib::sidebar(
       width = 300,
       shiny::tagList(
@@ -72,7 +103,7 @@ mod_filter_data_server <- function(id) {
     shiny::observe({
       shiny::req(session$userData$data_obj_rct()$validated)
       data <- session$userData$data_obj_rct()$get()
-      print(range(data$date))
+
       shiny::updateSelectInput(
         session,
         "filter_site",
@@ -150,5 +181,34 @@ mod_filter_data_server <- function(id) {
 
     # Render KPIs
     mod_kpis_server("kpis")
+
+    # Render Time Series Charts
+    mod_ts_chart_server("ts_value", y_var = "value")
+    mod_ts_chart_server("ts_emission", y_var = "carbon.emission.in.kgco2e")
+
+    # Render Summary Table
+    mod_summary_table_server("summary_table")
+
+    # Render Bar Charts
+    mod_bar_chart_server(
+      "bar_chart1",
+      x_var = "site",
+      y_var = "value"
+    )
+    mod_bar_chart_server(
+      "bar_chart2",
+      x_var = "site",
+      y_var = "carbon.emission.in.kgco2e"
+    )
+    mod_bar_chart_server(
+      "bar_chart3",
+      x_var = "type",
+      y_var = "value"
+    )
+    mod_bar_chart_server(
+      "bar_chart4",
+      x_var = "type",
+      y_var = "carbon.emission.in.kgco2e"
+    )
   })
 }
