@@ -90,9 +90,45 @@ Data <- R6::R6Class(
     #' @return The filtered dataset.
     filter = function(arglist) {
       logger::log_debug("[Data:filter] Filtering data")
-      self$filtered_data <- .filter(self$data, arglist)
+      res <- .filter(self$data, arglist)
+      if (!is.data.frame(res)) {
+        logger::log_debug(
+          "[Data:filter] Filter did not return a data.frame; no update performed" # nolint
+        )
+        self$filtered <- FALSE
+        self$filtered_data <- NULL
+        return(invisible(NULL))
+      }
+      self$filtered_data <- res
       self$filtered <- TRUE
       invisible(self$filtered_data)
+    },
+    #' @description Get a time series chart of the specified variable.
+    #' Uses the `ts_chart` function to create the chart.
+    #' @param y_var The name of the variable to plot on the y-axis.
+    #' Default is "value".
+    #' @param agg_fun The aggregation function to use if there are
+    #' multiple observations per date (default is mean).
+    #' @return A plotly object representing the time series chart.
+    ts_chart = function(y_var = "value", agg_fun = mean) {
+      logger::log_debug("[Data:ts_chart] Generating time series chart")
+      ts_chart(self$get(), y_var, agg_fun)
+    },
+    #' @description Get a summary table of key statistics.
+    #' Uses the `summary_table` function to create the table.
+    #' @return A data frame with summary statistics.
+    summary_table = function() {
+      logger::log_debug("[Data:summary_table] Generating summary table")
+      summary_table(self$get())
+    },
+    #' @description Get a bar chart of the specified variables.
+    #' Uses the `bar_chart` function to create the chart.
+    #' @param x_var The name of the variable to plot on the x-axis.
+    #' @param y_var The name of the variable to plot on the y-axis.
+    #' @return A plotly object representing the bar chart.
+    bar_chart = function(x_var, y_var) {
+      logger::log_debug("[Data:bar_chart] Generating bar chart")
+      bar_chart(self$get(), x_var, y_var)
     }
   ),
   private = list(
