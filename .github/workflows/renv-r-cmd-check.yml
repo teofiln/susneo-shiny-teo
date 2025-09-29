@@ -47,8 +47,10 @@ jobs:
 
       - name: Run package tests
         run: |
-          Rscript -e "if (!requireNamespace('testthat', quietly=TRUE)) install.packages('testthat', repos='https://cloud.r-project.org')"
-          Rscript -e "devtools::test()"
+          # Ensure testthat and devtools are available then run the package tests
+          Rscript -e 'if (!requireNamespace("testthat", quietly=TRUE)) install.packages("testthat", repos="https://cloud.r-project.org")'
+          Rscript -e 'if (!requireNamespace("devtools", quietly=TRUE)) install.packages("devtools", repos="https://cloud.r-project.org")'
+          Rscript -e 'devtools::test()'
 
       - name: Build package tarball
         run: |
