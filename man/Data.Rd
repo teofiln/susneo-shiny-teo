@@ -14,10 +14,9 @@ including filtering, validation, and KPI calculation.
 \dontrun{
 d <- task1::sample_data
 data_obj <- Data$new(d)
-data_obj$validate()
 kpis <- data_obj$kpis()
 filters <- list(
-  list(col = "value", fun = "between", min = 10, max = 50)
+  list(col = "value", fun = "between", min = 100, max = 200)
 )
 data_obj$filter(filters)
 filtered_data <- data_obj$get()
