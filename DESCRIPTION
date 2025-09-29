@@ -16,6 +16,7 @@ Imports:
     golem,
     janitor,
     logger,
+    pkgload,
     plotly,
     purrr,
     R6,
