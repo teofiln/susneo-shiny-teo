@@ -1,8 +1,11 @@
 #' ts_chart UI Function
 #'
-#' @description A shiny Module.
+#' @description Render a time series chart using Plotly.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
+#' @param title Title of the time series chart.
+#' @param y_var Variable for y-axis (default is "value").
+#' @param agg_fun Aggregation function for y-axis (default is mean).
 #'
 #' @noRd
 #'

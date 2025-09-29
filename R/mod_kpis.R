@@ -1,12 +1,16 @@
 #' kpis UI Function
 #'
-#' @description A shiny Module.
+#' @description Generate a set of KPI value boxes.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
+#' @importFrom bslib value_box layout_column_wrap card card_header
+#' @importFrom purrr map
+#' @importFrom janitor make_clean_names
+#' @importFrom shiny req reactive renderUI uiOutput bindEvent icon
 mod_kpis_ui <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(

@@ -30,7 +30,7 @@ app_ui <- function(request) {
       )),
       bslib::nav_spacer(),
       bslib::nav_panel("Data", mod_data_upload_ui("data_upload")),
-      bslib::nav_panel("Dashboard", mod_dashboard_ui("filter_data"))
+      bslib::nav_panel("Dashboard", mod_dashboard_ui("dashboard"))
     )
   )
 }

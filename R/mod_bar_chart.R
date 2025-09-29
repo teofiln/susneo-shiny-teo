@@ -1,8 +1,11 @@
 #' bar_chart UI Function
 #'
-#' @description A shiny Module.
+#' @description Render a bar chart using Plotly.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
+#' @param title Title of the bar chart.
+#' @param x_var Variable for x-axis (default is "site").
+#' @param y_var Variable for y-axis (default is "value").
 #'
 #' @noRd
 #'

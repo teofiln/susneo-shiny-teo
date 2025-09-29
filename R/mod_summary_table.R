@@ -1,6 +1,6 @@
 #' summary_table UI Function
 #'
-#' @description A shiny Module.
+#' @description Render a summary table of key metrics.
 #'
 #' @param id,input,output,session Internal parameters for {shiny}.
 #'
