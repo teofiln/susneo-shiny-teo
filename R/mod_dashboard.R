@@ -103,10 +103,23 @@ mod_dashboard_server <- function(id) {
   shiny::moduleServer(id, function(input, output, session) {
     ns <- session$ns # nolint
 
-    # Update filter inputs based on data
-    shiny::observe({
-      shiny::req(session$userData$data_obj_rct()$validated)
-      data <- session$userData$data_obj_rct()$get()
+    # Ensure a filter trigger exists on the session (other modules depend on it)
+    if (is.null(session$userData$filter_trigger)) {
+      session$userData$filter_trigger <- shiny::reactiveVal(runif(1))
+    }
+
+    # Helper to update the filter inputs from the active data
+    # in the Data R6 object
+    update_filter_inputs <- function() {
+      # require a validated Data object
+      shiny::req(session$userData$data_obj_rct())
+      data_obj <- session$userData$data_obj_rct()
+      shiny::req(data_obj$validated)
+      data <- data_obj$get()
+
+      if (nrow(data) == 0) {
+        return(invisible(NULL))
+      }
 
       shiny::updateSelectInput(
         session,
@@ -148,10 +161,61 @@ mod_dashboard_server <- function(id) {
           ceiling(max(data$carbon.emission.in.kgco2e, na.rm = TRUE))
         )
       )
-    })
+      invisible(NULL)
+    }
+
+    # Update inputs when the Data object changes
+    shiny::observeEvent(
+      session$userData$data_obj_rct(),
+      {
+        # If no data object yet, silently skip
+        data_obj <- session$userData$data_obj_rct()
+        if (is.null(data_obj)) {
+          return(invisible(NULL))
+        }
+        if (isFALSE(data_obj$validated)) {
+          return(invisible(NULL))
+        }
+
+        tryCatch(
+          update_filter_inputs(),
+          error = function(e) {
+            shiny::showNotification(
+              paste("Failed to update filter inputs:", e$message),
+              type = "warning"
+            )
+          }
+        )
+      },
+      ignoreNULL = TRUE,
+      ignoreInit = TRUE
+    )
+
+    # Update inputs after filters are applied or reset via the explicit trigger
+    shiny::observeEvent(
+      session$userData$filter_trigger(),
+      {
+        data_obj <- session$userData$data_obj_rct()
+        if (is.null(data_obj) || isFALSE(data_obj$validated)) {
+          return(invisible(NULL))
+        }
+
+        tryCatch(
+          update_filter_inputs(),
+          error = function(e) {
+            shiny::showNotification(
+              paste(
+                "Failed to refresh filter inputs after trigger:",
+                e$message
+              ),
+              type = "warning"
+            )
+          }
+        )
+      }
+    )
 
     # Apply filters to data
-    session$userData$filter_trigger <- shiny::reactiveVal(runif(1))
     shiny::observeEvent(
       input$apply_filters,
       {
