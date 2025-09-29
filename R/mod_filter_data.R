@@ -10,7 +10,7 @@
 mod_filter_data_ui <- function(id) {
   ns <- shiny::NS(id)
   bslib::layout_sidebar(
-    "Stuff",
+    mod_kpis_ui(ns("kpis")),
     sidebar = bslib::sidebar(
       width = 300,
       shiny::tagList(
@@ -72,6 +72,7 @@ mod_filter_data_server <- function(id) {
     shiny::observe({
       shiny::req(session$userData$data_obj_rct()$validated)
       data <- session$userData$data_obj_rct()$get()
+      print(range(data$date))
       shiny::updateSelectInput(
         session,
         "filter_site",
@@ -115,6 +116,7 @@ mod_filter_data_server <- function(id) {
     })
 
     # Apply filters to data
+    session$userData$filter_trigger <- shiny::reactiveVal(runif(1))
     shiny::observeEvent(
       input$apply_filters,
       {
@@ -126,9 +128,13 @@ mod_filter_data_server <- function(id) {
         tryCatch(
           {
             session$userData$data_obj_rct()$filter(filter_list)
+            session$userData$data_obj_rct()$get()
             shiny::showNotification(
               "Data filtered successfully",
               type = "message"
+            )
+            session$userData$filter_trigger(
+              runif(1)
             )
           },
           error = function(e) {
@@ -141,5 +147,8 @@ mod_filter_data_server <- function(id) {
       },
       ignoreNULL = FALSE
     )
+
+    # Render KPIs
+    mod_kpis_server("kpis")
   })
 }
