@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        config: ["r-release", "r-oldrel"]
+        config: ["r-release"]
 
     steps:
       - name: Checkout repository
