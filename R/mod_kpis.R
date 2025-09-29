@@ -42,7 +42,9 @@ mod_kpis_server <- function(id) {
         )
       })
     }) |>
-      shiny::bindEvent(session$userData$filter_trigger())
+      shiny::bindEvent(
+        session$userData$filter_trigger()
+      )
 
     output$kpis_ui <- shiny::renderUI({
       bslib::layout_column_wrap(
